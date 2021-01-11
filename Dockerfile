@@ -1,3 +1,10 @@
+FROM bionic-20201119
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+                    jo && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Pull base image.
 FROM ubuntu:xenial-20200706
 # Pre-cache neurodebian key
@@ -14,8 +21,6 @@ RUN apt-get update && \
                     autoconf \
                     libtool \
                     pkg-config \
-                    dcm2niix \
-                    jo \
                     jq \
                     git && \
     curl -sSL https://deb.nodesource.com/setup_10.x | bash - && \
@@ -34,6 +39,9 @@ RUN apt-get update && \
                     afni=16.2.07~dfsg.1-5~nd16.04+1 \
                     convert3d \
                     connectome-workbench=1.3.2-2~nd16.04+1 \
+                    dcm2niix \
+                    jo \
+                    jq \
                     git-annex-standalone && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
