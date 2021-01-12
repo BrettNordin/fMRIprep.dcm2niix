@@ -17,8 +17,9 @@ COPY docker/scripts/dicomconvert.sh /home/dcmnii/dicom.sh
 
 RUN find $HOME -type d -exec chmod go=u {} + && \
     find $HOME -type f -exec chmod go=u {} + && \
-    rm -rf $HOME/.npm $HOME/.conda $HOME/.empty
-
+    rm -rf $HOME/.empty
+RUN touch /home/dcmnii/dicom.sh
+RUN chmod -R 777 /home/dcmnii/
 ENTRYPOINT ["/home/dcmnii/dicom.sh"]
 
 
