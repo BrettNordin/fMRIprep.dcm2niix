@@ -11,14 +11,30 @@ o) OUTPUT=${OPTARG};;
 p) PLIST=${OPTARG};;
 esac
 done
+
+if [ -z ${INPUT} ]
+then
+echo "-i cannot be blank"
+exit 0
+fi
+if [ -z ${OUTPUT} ]
+then
+echo "-o cannot be blank"
+exit 0
+fi
+if [ -z ${PLIST} ]
+then
+echo "-p cannot be blank"
+exit 0
+fi
+
 echo "Welcome to the Automatic Dicom Conversion Tool.."
-c="/home/dcmnii"
 echo "Output DIR: "${OUTPUT}
 echo "Input DIR: "${INPUT}
 niidir=${OUTPUT}
 dcmdir=${INPUT}
 ###Create dataset_description.json
-jo -p "Name"="Kelseys Data!" "BIDSVersion"="1.0.2" >> ${niidir}/dataset_description.json
+jo -p "Name"="Data!" "BIDSVersion"="1.0.2" >> ${niidir}/dataset_description.json
 
 ####Anatomical Organization####
 for subj in ${PLIST}; do
