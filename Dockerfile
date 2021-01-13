@@ -1,4 +1,4 @@
-# Pull Sub image.
+#Pull Sub image.
 FROM ubuntu:bionic-20201119
 
 RUN apt-get update && \
