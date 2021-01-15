@@ -40,7 +40,7 @@ else
     if [ ${COMPR} == "y" ]
     then
         for dies in "${dcmdir}/*"; do
-            tar zxvf $dies -C ${dcmdir}/*
+            tar zxf $dies -C ${dcmdir}/*
         done
     fi
 fi
@@ -63,7 +63,7 @@ then
         for direcs in T1; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
-                tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
+                tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
@@ -78,7 +78,7 @@ then
         for direcs in fMRI; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
-                tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
+                tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
