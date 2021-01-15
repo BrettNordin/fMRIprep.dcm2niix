@@ -37,7 +37,7 @@ if [ -z ${COMPR} ]
 then
     echo "Root Compression Check Disabled"
 else
-    if [ ${COMPR}=="y" ]
+    if [ ${COMPR} == "y" ]
     then
         for dies in "${dcmdir}/*"; do
             tar zxvf $dies -C ${dcmdir}/*
@@ -48,10 +48,10 @@ fi
 #See if user specified participants. If not run em all!
 if [ -z ${PLIST} ]
 then
-	echo "No participants Defined, Running all participants"
+    echo "No participants Defined, Running all participants"
     for subj in $(ls ${dcmdir}/); do
-		subb=$subj 
-		if [[ $subj == *"sub-"* ]]; then
+        subb=$subj
+        if [[ $subj == *"sub-"* ]]; then
             echo "Processing subject $subj"
         else
             subj="sub-${subj}"
@@ -59,7 +59,7 @@ then
         fi
         mkdir -p ${niidir}/${subj}/anat
         mkdir -p ${niidir}/${subj}/func
-		cd ${dcmdir}/${subb}
+        cd ${dcmdir}/${subb}
         for direcs in T1; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
@@ -72,7 +72,7 @@ then
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/anat/${subj}_T1w.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/anat/${subj}_T1w.json
-
+        
         #Func Conversion
         cd ${dcmdir}/${subb}
         for direcs in fMRI; do
@@ -114,7 +114,9 @@ then
         done
     done
 else
+    echo "Participants Defined, Running only specified participants"
     for subj in ${PLIST}; do
+        subb=$subj
         if [[ $subj == *"sub-"* ]]; then
             echo "Processing subject $subj"
         else
@@ -126,34 +128,37 @@ else
         mkdir -p ${niidir}/${subj}/func
         
         #Anat Conversion
-        cd ${dcmdir}/${subj}
+        cd ${dcmdir}/${subb}
         for direcs in T1; do
             #Extract the compressed dicom
-            for fil in "${dcmdir}/${subj}/${direcs}/*.tgz"; do
-                tar zxvf $fil -C ${dcmdir}/${subj}/${direcs}
+            for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subj}/${direcs}
+            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/anat/${subj}_T1w.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/anat/${subj}_T1w.json
+        pigz --best -Y ${niidir}/${subj}/anat/${subj}_T1w.nii
         
         #Func Conversion
-        cd ${dcmdir}/${subj}
+        cd ${dcmdir}/${subb}
         for direcs in fMRI; do
             #Extract the compressed dicom
-            for fil in "${dcmdir}/${subj}/${direcs}/*.tgz"; do
-                tar zxvf $fil -C ${dcmdir}/${subj}/${direcs}
+            for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subj}/${direcs}
+            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.json
+        #compress it
+        pigz --best -Y ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
         
         ###Check func json for required fields
         cd ${niidir}/${subj}/func #Go into the func folder
