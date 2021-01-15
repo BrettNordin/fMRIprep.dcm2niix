@@ -72,7 +72,8 @@ then
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/anat/${subj}_T1w.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/anat/${subj}_T1w.json
-        
+        pigz --best -Y ${niidir}/${subj}/anat/${subj}_T1w.nii
+
         #Func Conversion
         cd ${dcmdir}/${subb}
         for direcs in fMRI; do
@@ -87,7 +88,8 @@ then
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.json
-        
+        pigz --best -Y ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
+
         ###Check func json for required fields
         cd ${niidir}/${subj}/func #Go into the func folder
         for funcjson in $(ls ${niidir}/${subj}/func/*.json); do
@@ -157,7 +159,6 @@ else
         #Move the files arround
         mv ${niidir}/${subj}/*.nii ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
         mv ${niidir}/${subj}/*.json ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.json
-        #compress it
         pigz --best -Y ${niidir}/${subj}/func/${subj}_task-rest_run-01_bold.nii
         
         ###Check func json for required fields
