@@ -28,8 +28,8 @@ ARG VCS_REF
 ARG VERSION
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="DCMNII" \
-      org.label-schema.description="Private DCM2NII Converter" \
-      org.label-schema.url="http://sphub.net" \
+      org.label-schema.description="DCM2NII Converter by Brett Nordin" \
+      org.label-schema.url="https://sphub.net" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.vcs-url="https://github.com/BrettNordin/Docker_dcm2nii" \
       org.label-schema.version=$VERSION \
