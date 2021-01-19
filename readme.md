@@ -3,7 +3,9 @@ fMRIprep.dcm2niix is designed to convert DICOM format to the NIfTI format.
 
 ## Installation
 The repository has been desgined to run either in Docker or Singularity:
+
 [Docker Link](https://hub.docker.com/repository/docker/brettnordin/fmriprep.dcm2nii)
+
 [Singularity Link](https://cloud.sylabs.io/library/brettnordin/default/dcm2niix)
 
 ## Docker Usage
@@ -32,7 +34,11 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Whats included:
 Base image: [ubuntu:bionic-20201119](https://uec-images.ubuntu.com/bionic/current/)
+
 Apt-Package jo: [jo Github](https://github.com/jpmens/jo)
+
 Apt-Package jq: [jq Github](https://github.com/stedolan/jq)
+
 Apt-Package pigz: [pigz Github](https://github.com/madler/pigz)
+
 Apt-Package dcm2niix: [dcm2niix Github](https://github.com/rordenlab/dcm2niix)
