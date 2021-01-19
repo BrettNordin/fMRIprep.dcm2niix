@@ -29,10 +29,10 @@ ARG VCS_REF
 ARG VERSION
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="DCMNII" \
-      org.label-schema.description="DCM2NII Converter by Brett Nordin" \
+      org.label-schema.description="DICOM to Nifti Converter by Brett Nordin" \
       org.label-schema.url="https://sphub.net" \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/BrettNordin/Docker_dcm2nii" \
+      org.label-schema.vcs-url="https://github.com/BrettNordin/fMRIprep.dcm2niix" \
       org.label-schema.version=$VERSION \
       org.label-schema.schema-version="1.0"
 
