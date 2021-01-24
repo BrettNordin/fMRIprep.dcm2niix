@@ -64,8 +64,10 @@ then
         for direcs in T1; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                echo "Extracting Files"
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
+            echo "Starting dcm2niix"
             /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
@@ -80,8 +82,10 @@ then
         for direcs in fMRI; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                echo "Extracting Files"
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
+            echo "Starting dcm2niix"
             /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
@@ -135,8 +139,10 @@ else
         for direcs in T1; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                echo "Extracting Files, This may take a moment"
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
+            echo "Starting dcm2niix"
             /home/dcmnii/dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
@@ -151,8 +157,10 @@ else
         for direcs in fMRI; do
             #Extract the compressed dicom
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
+                echo "Extracting Files, This may take a moment"
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
+            echo "Starting dcm2niix"
             /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
