@@ -13,6 +13,9 @@ do
     esac
 done
 
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+trap 'echo "\"${last_command}\" command filed with exit code $?."'  EXIT
+
 if [ -z ${INPUT} ]
 then
     echo "-i cannot be blank"
@@ -65,7 +68,7 @@ then
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -81,7 +84,7 @@ then
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -136,7 +139,7 @@ else
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -152,7 +155,7 @@ else
             for fil in "${dcmdir}/${subb}/${direcs}/*.tgz"; do
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
-            dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}

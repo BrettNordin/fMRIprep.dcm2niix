@@ -4,7 +4,6 @@ FROM ubuntu:bionic-20201119
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
                     jq \
-                    dcm2niix \
                     pigz \
                     jo && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -14,13 +13,16 @@ RUN useradd -m -s /bin/bash -G users dcmnii
 WORKDIR /home/dcmnii
 ENV HOME="/home/dcmnii"
 
+COPY docker/scripts/dcm2niix /home/dcmnii/dcm2niix
 COPY docker/scripts/dicomconvert.sh /home/dcmnii/dicom.sh
+
 
 RUN find $HOME -type d -exec chmod go=u {} + && \
     find $HOME -type f -exec chmod go=u {} + && \
     rm -rf $HOME/.empty
 RUN touch /home/dcmnii/dicom.sh
 RUN chmod -R 777 /home/dcmnii/
+RUN chmod 777 /home/dcmnii/dcm2niix
 ENTRYPOINT ["/home/dcmnii/dicom.sh"]
 
 
