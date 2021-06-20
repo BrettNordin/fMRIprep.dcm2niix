@@ -10,6 +10,7 @@ do
         o) OUTPUT=${OPTARG};;
         p) PLIST=${OPTARG};;
         c) COMPR=${OPTARG};;
+        d) DICM=${OPTARG};;
     esac
 done
 
@@ -24,6 +25,12 @@ then
     echo "-o cannot be blank"
     exit 0
 fi
+if [ -z ${DICM} ]
+then
+    echo "-o cannot be blank"
+    exit 0
+fi
+
 
 echo "Welcome to the Automatic Dicom Conversion Tool.."
 echo "Output DIR: "${OUTPUT}
@@ -68,7 +75,7 @@ then
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             echo "Starting dcm2niix"
-            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            ${DICM}/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -86,7 +93,7 @@ then
                 tar zxf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             echo "Starting dcm2niix"
-            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            ${DICM}/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -143,7 +150,7 @@ else
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             echo "Starting dcm2niix"
-            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            ${DICM}/dcm2niix -o ${niidir}/${subj} -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
@@ -161,7 +168,7 @@ else
                 tar zxvf $fil -C ${dcmdir}/${subb}/${direcs}
             done
             echo "Starting dcm2niix"
-            /home/dcmnii/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
+            ${DICM}/dcm2niix -o ${niidir}/${subj} -p y -f ${subj}_%f_%p ${dcmdir}/${subb}/${direcs}
         done
         #Changing directory into the subject folder
         cd ${niidir}/${subj}
